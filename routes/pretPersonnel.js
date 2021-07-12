@@ -1,25 +1,30 @@
-const express = require('express');
+const express = require("express");
 const route = express.Router();
 
-const pretPersonnelControllers = require('../controllers/pretPersonnel')
+const pretPersonnelControllers = require("../controllers/pretPersonnel");
 
-const {check} = require('express-validator')
+const { check } = require("express-validator");
+const fileUpload = require("../middleware/file-upload");
 
+route.post(
+  "/ajout",
+  fileUpload.single("image"),
 
-route.post('/ajout', 
-check('demandepret')
-.not()
-.isEmpty(),
-check('copieCIN')
-.not()
-.isEmpty(),
-check('rib')
-.not()
-.isEmpty(),
+  pretPersonnelControllers.ajout
+);
 
-pretPersonnelControllers.ajout)
+route.patch(
+  "/updaterib/:id",
+  fileUpload.single("image"),
+  pretPersonnelControllers.updaterib
+);
 
-route.get('/',pretPersonnelControllers.getPretPers)
-route.get('/:id',pretpersonnelControllers.getPretPersById)
+route.patch(
+  "/updatecopieCIN/:id",
+  fileUpload.single("image"),
+  pretPersonnelControllers.updatecopieCIN
+);
 
-module.exports= route
+route.get("/", pretPersonnelControllers.getPretPers);
+
+module.exports = route;

@@ -1,28 +1,37 @@
-const express = require('express');
+const express = require("express");
 const route = express.Router();
 
-const pensionretraiteControllers = require('../controllers/pensionretraite')
+const pensionretraiteControllers = require("../controllers/pensionretraite");
 
-const {check} = require('express-validator')
+const { check } = require("express-validator");
+const fileUpload = require("../middleware/file-upload");
 
+route.post(
+  "/ajout",
+  fileUpload.single("image"),
 
-route.post('/ajout', 
-check('arreteMISEretraite')
-.not()
-.isEmpty(),
-check('releveService')
-.not()
-.isEmpty(),
-check('photoIdent')
-.not()
-.isEmpty(),
-check('extraitNaissance')
-.not()
-.isEmpty(),
+  pensionretraiteControllers.ajout
+);
 
-pensionretraiteControllers.ajout)
+route.patch(
+  "/updatearreteMISEretraite/:id",
+  fileUpload.single("image"),
+  pensionretraiteControllers.updatearreteMISEretraite
+);
 
-route.get('/',pensionretraiteControllers.getPensionR)
-route.get('/:id',pensionretraiteControllers.getPensionRById)
+route.patch(
+  "/updateextraitNaissance/:id",
+  fileUpload.single("image"),
+  pensionretraiteControllers.updateextraitNaissance
+);
 
-module.exports= route
+route.patch(
+  "/updatephotoIdent/:id",
+  fileUpload.single("image"),
+  pensionretraiteControllers.updatephotoIdent
+);
+
+route.get("/", pensionretraiteControllers.getPensionR);
+route.get("/:id", pensionretraiteControllers.getPensionRById);
+
+module.exports = route;
