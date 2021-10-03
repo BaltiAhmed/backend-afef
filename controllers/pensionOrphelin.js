@@ -11,37 +11,22 @@ const ajout = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const {
-    demande,
-    acteDeces,
-    releveServices,
-    extraitNaissOrphelin,
-    cinOrphelin,
-    declarationNonEmploi,
-    certificatInscritUniversitaire,
-    attestationNonAff,
-    attestationNonBenif,
-    carteHandicap,
-    jugementTutelle,
-    photoTuteur,
-    copieCinTuteur,
-    utilisateurId,
-  } = req.body;
+  const { utilisateurId } = req.body;
 
   const createdPensionO = new pensionOrphelin({
-    demande,
-    acteDeces,
-    releveServices,
-    extraitNaissOrphelin,
-    cinOrphelin,
-    declarationNonEmploi,
-    certificatInscritUniversitaire,
-    attestationNonAff,
-    attestationNonBenif,
-    carteHandicap,
-    jugementTutelle,
-    photoTuteur,
-    copieCinTuteur,
+    demande: req.file.path,
+    acteDeces: "fgfgfg",
+    releveServices: "fgfgfg",
+    extraitNaissOrphelin: "fgfgfg",
+    cinOrphelin: "fgfgfg",
+    declarationNonEmploi: "fgfgfg",
+    certificatInscritUniversitaire: "fgfgfg",
+    attestationNonAff: "fgfgfg",
+    attestationNonBenif: "fgfgfg",
+    carteHandicap: "fgfgfg",
+    jugementTutelle: "fgfgfg",
+    photoTuteur: "fgfgfg",
+    copieCinTuteur: "fgfgfg",
     utilisateurId,
     finish: false,
   });
@@ -88,39 +73,13 @@ const getPensionOById = async (req, res, next) => {
   }
   res.json({ PensionO: existingPensionO });
 };
-const updatedemande = async (req, res, next) => {
-  const error = validationResult(req);
-  if (!error.isEmpty()) {
-    return next(new httpError("invalid input passed ", 422));
-  }
 
-  const { demande } = req.body;
-  const id = req.params.id;
-  let existingPensionO;
-
-  try {
-    existingPensionO = await pensionOrphelin.findById(id);
-  } catch {
-    return next(new httpError("failed ", 500));
-  }
-
-  existingPensionO.demande = demande;
-
-  try {
-    existinguser.save();
-  } catch {
-    return next(new httpError("failed to save ", 500));
-  }
-
-  res.status(200).json({ existingPensionO: existingPensionO });
-};
 const updateacteDeces = async (req, res, next) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { acteDeces } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -130,10 +89,10 @@ const updateacteDeces = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.acteDeces = acteDeces;
+  existingPensionO.acteDeces = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -146,7 +105,6 @@ const updatereleveServices = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { releveServices } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -156,10 +114,10 @@ const updatereleveServices = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.releveServices = releveServices;
+  existingPensionO.releveServices = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -172,7 +130,6 @@ const updateextraitNaissOrphelin = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { extraitNaissOrphelin } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -182,10 +139,10 @@ const updateextraitNaissOrphelin = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.extraitNaissOrphelin = extraitNaissOrphelin;
+  existingPensionO.extraitNaissOrphelin = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -198,7 +155,6 @@ const updatecinOrphelin = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { cinOrphelin } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -208,10 +164,10 @@ const updatecinOrphelin = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.cinOrphelin = cinOrphelin;
+  existingPensionO.cinOrphelin = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -224,7 +180,6 @@ const updatedeclarationNonEmploi = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { declarationNonEmploi } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -234,10 +189,10 @@ const updatedeclarationNonEmploi = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.declarationNonEmploi = declarationNonEmploi;
+  existingPensionO.declarationNonEmploi = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -250,7 +205,6 @@ const updatecertificatInscritUniversitaire = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { certificatInscritUniversitaire } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -260,11 +214,10 @@ const updatecertificatInscritUniversitaire = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.certificatInscritUniversitaire =
-    certificatInscritUniversitaire;
+  existingPensionO.certificatInscritUniversitaire = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -277,7 +230,6 @@ const updateattestationNonAff = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { attestationNonAff } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -287,10 +239,10 @@ const updateattestationNonAff = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.attestationNonAff = attestationNonAff;
+  existingPensionO.attestationNonAff = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -303,7 +255,6 @@ const updateattestationNonBenif = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { attestationNonBenif } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -313,10 +264,10 @@ const updateattestationNonBenif = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.attestationNonBenif = attestationNonBenif;
+  existingPensionO.attestationNonBenif = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -329,7 +280,6 @@ const updatecarteHandicap = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { carteHandicap } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -339,10 +289,10 @@ const updatecarteHandicap = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.carteHandicap = carteHandicap;
+  existingPensionO.carteHandicap = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -355,7 +305,6 @@ const updatejugementTutelle = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { jugementTutelle } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -365,10 +314,10 @@ const updatejugementTutelle = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.jugementTutelle = jugementTutelle;
+  existingPensionO.jugementTutelle = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -381,7 +330,6 @@ const updatephotoTuteur = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { photoTuteur } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -391,10 +339,10 @@ const updatephotoTuteur = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.photoTuteur = photoTuteur;
+  existingPensionO.photoTuteur = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -407,7 +355,6 @@ const updatecopieCinTuteur = async (req, res, next) => {
     return next(new httpError("invalid input passed ", 422));
   }
 
-  const { copieCinTuteur } = req.body;
   const id = req.params.id;
   let existingPensionO;
 
@@ -417,10 +364,10 @@ const updatecopieCinTuteur = async (req, res, next) => {
     return next(new httpError("failed ", 500));
   }
 
-  existingPensionO.copieCinTuteur = copieCinTuteur;
+  existingPensionO.copieCinTuteur = req.file.path;
 
   try {
-    existinguser.save();
+    existingPensionO.save();
   } catch {
     return next(new httpError("failed to save ", 500));
   }
@@ -431,7 +378,7 @@ const updatecopieCinTuteur = async (req, res, next) => {
 exports.ajout = ajout;
 exports.getPensionO = getPensionO;
 exports.getPensionOById = getPensionOById;
-exports.updatedemande = updatedemande;
+
 exports.updateacteDeces = updateacteDeces;
 exports.updatereleveServices = updatereleveServices;
 exports.updateextraitNaissOrphelin = updateextraitNaissOrphelin;

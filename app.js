@@ -16,6 +16,7 @@ const pensionMiseEnRetraite = require('./routes/pensionretraite')
 const pretPersonnelRoutes = require('./routes/pretPersonnel')
 const pretUniversitaireRoutes = require('./routes/pretUniversitaire')
 const prestationSoutien = require('./routes/prestationSoutien')
+const pensionOrphelin = require('./routes/pensionOrphelin')
 
 const httperror = require("./models/error");
 
@@ -47,6 +48,7 @@ app.use("/api/pensionretraite", pensionMiseEnRetraite);
 app.use("/api/pretPersonnel", pretPersonnelRoutes);
 app.use("/api/pretUniversitaire", pretUniversitaireRoutes);
 app.use("/api/prestationSoutien", prestationSoutien);
+app.use("/api/pensionOrphelin", pensionOrphelin);
 
 app.use((req, res, next) => {
   const error = new httperror("could not find that page", 404);

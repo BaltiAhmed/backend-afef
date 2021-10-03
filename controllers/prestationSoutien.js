@@ -35,11 +35,10 @@ const ajout = async (req, res, next) => {
   }
 
   existingPrestationSou.prestationsoutien.push(createdPrestationSou);
-    existingPrestationSou.save();
-  
+  existingPrestationSou.save();
+
   try {
     createdPrestationSou.save();
-    
   } catch (err) {
     const error = new httpError("failed signup", 500);
     return next(error);
