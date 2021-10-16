@@ -21,7 +21,10 @@ const utilisateurSchema = new schema({
     prestationsoutien:[{type:mongoose.Types.ObjectId,ref:'prestationSoutien'}],
     pretpersonnel:[{type:mongoose.Types.ObjectId,ref:'pretpersonnel'}],
     pretUniversitaire:[{type:mongoose.Types.ObjectId,ref:'pretUniversitaire'}],
-    reclamations:[{type:mongoose.Types.ObjectId,ref:'reclamation'}]
+    reclamations:[{type:mongoose.Types.ObjectId,ref:'reclamation'}],
+    attestationNonAffiliation:[{type:mongoose.Types.ObjectId,ref:'attestationNonAffiliation'}],
+    attestationAffiliation:[{type:mongoose.Types.ObjectId,ref:'attestationAffiliation'}],
+    nonBenifisPret:[{type:mongoose.Types.ObjectId,ref:'nonBenifisPret'}]
 
 })
 

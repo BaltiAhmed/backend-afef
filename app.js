@@ -17,6 +17,9 @@ const pretPersonnelRoutes = require('./routes/pretPersonnel')
 const pretUniversitaireRoutes = require('./routes/pretUniversitaire')
 const prestationSoutien = require('./routes/prestationSoutien')
 const pensionOrphelin = require('./routes/pensionOrphelin')
+const attestationNonAffiliationroutes = require('./routes/attestation-non-affiliation')
+const attestationAffiliation = require('./routes/attestation-affiliation')
+const nonBenifisPret = require('./routes/non-benifis-pret')
 
 const httperror = require("./models/error");
 
@@ -49,6 +52,9 @@ app.use("/api/pretPersonnel", pretPersonnelRoutes);
 app.use("/api/pretUniversitaire", pretUniversitaireRoutes);
 app.use("/api/prestationSoutien", prestationSoutien);
 app.use("/api/pensionOrphelin", pensionOrphelin);
+app.use("/api/attestationNonAffiliation", attestationNonAffiliationroutes);
+app.use("/api/attestationAffiliation", attestationAffiliation);
+app.use("/api/nonBenifisPret", nonBenifisPret);
 
 app.use((req, res, next) => {
   const error = new httperror("could not find that page", 404);
