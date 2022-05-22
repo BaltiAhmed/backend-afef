@@ -375,6 +375,27 @@ const updatecopieCinTuteur = async (req, res, next) => {
   res.status(200).json({ existingPensionO: existingPensionO });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await pensionOrphelin.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
 exports.ajout = ajout;
 exports.getPensionO = getPensionO;
 exports.getPensionOById = getPensionOById;
@@ -392,3 +413,4 @@ exports.updatecarteHandicap = updatecarteHandicap;
 exports.updatejugementTutelle = updatejugementTutelle;
 exports.updatephotoTuteur = updatephotoTuteur;
 exports.updatecopieCinTuteur = updatecopieCinTuteur;
+exports.updatedStatus = updatedStatus

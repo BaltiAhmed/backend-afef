@@ -61,6 +61,7 @@ route.get('/',utilisateurRoute.getUtilisateur)
 route.get('/:id',utilisateurRoute.getUtilisateurById)
 
 route.delete('/:id',utilisateurRoute.deleteUtilisateur)
+route.delete('/bloc/:id',utilisateurRoute.BlocUser)
 
 module.exports= route
 

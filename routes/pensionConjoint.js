@@ -33,5 +33,7 @@ route.patch(
 route.get("/", pensionConjointControllers.getPensionCon);
 route.get("/:id", pensionConjointControllers.getPensionConById);
 route.delete("/:id",pensionConjointControllers.deletePensionConjoin)
+route.patch("/:id", pensionConjointControllers.updatedStatus);
+
 
 module.exports = route;

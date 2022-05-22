@@ -18,5 +18,6 @@ route.patch(
 
 route.get("/", pensionCivileControllers.getPensionC);
 route.get("/:id", pensionCivileControllers.getPensionCById);
+route.patch("/:id", pensionCivileControllers.updatedStatus);
 
 module.exports = route;

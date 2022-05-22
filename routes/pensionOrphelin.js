@@ -84,5 +84,7 @@ route.patch(
 
 route.get("/", pensionOrphelinControllers.getPensionO);
 route.get("/:id", pensionOrphelinControllers.getPensionOById);
+route.patch("/:id", pensionOrphelinControllers.updatedStatus);
+
 
 module.exports = route;

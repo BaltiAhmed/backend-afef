@@ -6,10 +6,7 @@ const adminControllers = require('../controllers/admin')
 const {check} = require('express-validator')
 
 route.post('/signup', 
-check('name')
-.not()
-.isEmpty(),
-check('matricule')
+check('email')
 .not()
 .isEmpty(),
 check('password')
@@ -18,11 +15,13 @@ check('password')
 
 
 route.post('/login', 
-check('matricule')
+check('email')
 .not()
 .isEmpty(),
 check('password')
 .isLength({min:8})
 , adminControllers.login)
+
+route.get('/',adminControllers.getAdmin)
 
 module.exports = route

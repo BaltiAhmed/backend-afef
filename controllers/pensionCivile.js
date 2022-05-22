@@ -112,7 +112,28 @@ const uploadReleveService = async (req, res, next) => {
     return next(new httpError("failed to save ", 500));
   }
 
-  console.log(existingPensionC)
+  console.log(existingPensionC);
+
+  res.status(200).json({ existingPensionC: existingPensionC });
+};
+
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let existingPensionC;
+
+  try {
+    existingPensionC = await pensionCivile.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  existingPensionC.finish = true;
+
+  try {
+    existingPensionC.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
 
   res.status(200).json({ existingPensionC: existingPensionC });
 };
@@ -122,3 +143,4 @@ exports.getPensionC = getPensionC;
 exports.getPensionCById = getPensionCById;
 exports.updatedecisionMISEretraite = updatedecisionMISEretraite;
 exports.uploadReleveService = uploadReleveService;
+exports.updatedStatus = updatedStatus

@@ -22,7 +22,7 @@ const ajout = async (req, res, next) => {
   const createdReclamation = new reclamation({
     objet,
     message,
-    utilisateur: existinguser,
+    utilisateur: utilisateurId,
     finish: false,
   });
 

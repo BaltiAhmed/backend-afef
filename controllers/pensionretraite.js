@@ -145,9 +145,32 @@ const updateextraitNaissance = async (req, res, next) => {
   res.status(200).json({ existingPensionR: existingPensionR });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await pensionretraite.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
 exports.ajout = ajout;
 exports.getPensionR = getPensionR;
 exports.getPensionRById = getPensionRById;
 exports.updatearreteMISEretraite = updatearreteMISEretraite;
 exports.updatephotoIdent = updatephotoIdent;
 exports.updateextraitNaissance = updateextraitNaissance;
+exports.updatedStatus = updatedStatus
+

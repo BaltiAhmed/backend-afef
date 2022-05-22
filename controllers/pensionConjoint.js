@@ -160,6 +160,27 @@ const deletePensionConjoin = async (req, res, next) => {
   res.status(200).json({ message: "deleted" });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await pensionConjoint.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
 exports.ajout = ajout;
 exports.getPensionCon = getPensionCon;
 exports.getPensionConById = getPensionConById;
@@ -167,3 +188,4 @@ exports.updateacteNotorieteDeces = updateacteNotorieteDeces;
 exports.updateextraitNaissConjoint = updateextraitNaissConjoint;
 exports.updatephotoIdentite = updatephotoIdentite;
 exports.deletePensionConjoin = deletePensionConjoin
+exports.updatedStatus = updatedStatus

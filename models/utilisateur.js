@@ -11,6 +11,7 @@ const utilisateurSchema = new schema({
     tel:{type:String,required:true},
     password:{type:String,required:true,minlenght:8},
     matriculeCNRPS:{type:String},
+    bloc:{type:String,required:true},
     allocationVieillesse:[{type:mongoose.Types.ObjectId,ref:'allocationVieillesse'}],
     attestation:[{type:mongoose.Types.ObjectId,ref:'attestation'}],
     capitalDeces:[{type:mongoose.Types.ObjectId,ref:'capitalDeces'}],
@@ -24,7 +25,8 @@ const utilisateurSchema = new schema({
     reclamations:[{type:mongoose.Types.ObjectId,ref:'reclamation'}],
     attestationNonAffiliation:[{type:mongoose.Types.ObjectId,ref:'attestationNonAffiliation'}],
     attestationAffiliation:[{type:mongoose.Types.ObjectId,ref:'attestationAffiliation'}],
-    nonBenifisPret:[{type:mongoose.Types.ObjectId,ref:'nonBenifisPret'}]
+    nonBenifisPret:[{type:mongoose.Types.ObjectId,ref:'nonBenifisPret'}],
+    notification:[{type:mongoose.Types.ObjectId,ref:'notification'}]
 
 })
 

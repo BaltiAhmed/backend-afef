@@ -35,6 +35,7 @@ const signup = async (req, res, next) => {
     tel,
     Dnaissance,
     matriculeCNRPS: null,
+    bloc: "false",
     allocationVieillesse: [],
     attestation: [],
     capitalDeces: [],
@@ -46,6 +47,7 @@ const signup = async (req, res, next) => {
     pretpersonnel: [],
     pretUniversitaire: [],
     reclamations: [],
+    notification: [],
   });
 
   try {
@@ -67,19 +69,17 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res
-    .status(201)
-    .json({
-      utilisateurId: createduser.id,
-      email: createduser.email,
-      token: token,
-    });
+  res.status(201).json({
+    utilisateurId: createduser.id,
+    email: createduser.email,
+    token: token,
+  });
 };
 
 const login = async (req, res, next) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    return next(new httpError("invalid input passed ", 422));
+    return next(new httpError("Vérifiez vos coordonnées ", 422));
   }
 
   const { email, password } = req.body;
@@ -114,7 +114,7 @@ const login = async (req, res, next) => {
 const getUtilisateur = async (req, res, next) => {
   let existinguser;
   try {
-    existinguser = await utilisateur.find({}, "-pasword");
+    existinguser = await utilisateur.find();
   } catch {
     const error = new httpError("failed signup", 500);
     return next(error);
@@ -148,6 +148,34 @@ const updateUtilisateur = async (req, res, next) => {
   existinguser.save();
 
   console.log(existinguser);
+  try {
+    existinguser.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ utilisateur: existinguser });
+};
+
+const BlocUser = async (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return next(new httpError("invalid input passed ", 422));
+  }
+
+  const UserId = req.params.id;
+  let existinguser;
+
+  try {
+    existinguser = await utilisateur.findById(UserId);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  existinguser.bloc == "false"
+    ? (existinguser.bloc = "true")
+    : (existinguser.bloc = "false");
+
   try {
     existinguser.save();
   } catch {
@@ -195,3 +223,4 @@ exports.getUtilisateur = getUtilisateur;
 exports.updateUtilisateur = updateUtilisateur;
 exports.deleteUtilisateur = deleteUtilisateur;
 exports.getUtilisateurById = getUtilisateurById;
+exports.BlocUser = BlocUser;

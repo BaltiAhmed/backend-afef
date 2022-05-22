@@ -3,9 +3,9 @@ const uniqueValidator = require('mongoose-unique-validator')
 const schema = mongoose.Schema;
 
 const adminSchema = new schema({
-    name:{type:String,required:true},
-    matricule:{type:String,required:true,unique:true},
-    password:{type:String,required:true,minlenght:8}
+    email:{type:String,required:true,unique:true},
+    password:{type:String,required:true,minlenght:8},
+    type:{type:String,required:true}
 
 })
 
