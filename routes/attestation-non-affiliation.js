@@ -16,4 +16,9 @@ route.post(
   attestationNonAffiliationcontrollers.ajout
 );
 
+route.get("/", attestationNonAffiliationcontrollers.getAttestationNonAffiliation);
+
+route.patch("/:id", attestationNonAffiliationcontrollers.updatedStatus);
+
+
 module.exports = route;

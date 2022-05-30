@@ -14,6 +14,15 @@ route.post(
   notificationControllers.ajout
 );
 
+route.post(
+  "/addNotification",
+  check("sujet").not().isEmpty(),
+  check("message").not().isEmpty(),
+  check("idUtilisateur").not().isEmpty(),
+
+  notificationControllers.AddNotification
+);
+
 route.get("/:id", notificationControllers.getNotificationByUserId);
 
 module.exports = route;

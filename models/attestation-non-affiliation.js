@@ -9,6 +9,7 @@
         dateCIN:{type:String,required:true},
         DateNaissance:{type:String,required:true},
         lieuNaissance:{type:String,required:true},
+        utilisateurId:{type:String,required:true},
         finish:{type:String,required:true},
 
 

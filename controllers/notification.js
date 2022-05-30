@@ -31,7 +31,7 @@ const ajout = async (req, res, next) => {
 
   existingReclamation.finish = true
 
-  reclamation
+  
   const createdNotification = new notification({
     sujet,
     message,
@@ -52,6 +52,41 @@ const ajout = async (req, res, next) => {
     notification: createdNotification,
   });
 };
+
+const AddNotification = async (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return next(new httpError("invalid input passed ", 422));
+  }
+
+  const { sujet, message, idUtilisateur } = req.body;
+  let existinguser;
+  try {
+    existinguser = await utilisateur.findById(idUtilisateur);
+  } catch (err) {
+    const error = new httpError("problems!!!", 500);
+    return next(error);
+  }
+
+  const createdNotification = new notification({
+    sujet,
+    message,
+    idUtilisateur,
+  });
+
+  try {
+    await createdNotification.save();
+    existinguser.push(createdNotification);
+    await existinguser.save();
+  } catch (err) {
+    const error = new httpError("failed signup", 500);
+    return next(error);
+  }
+
+  res.status(201).json({
+    notification: createdNotification,
+  });
+}
 
 const getNotificationByUserId = async (req, res, next) => {
   const id = req.params.id;
@@ -78,3 +113,4 @@ const getNotificationByUserId = async (req, res, next) => {
 
 exports.ajout = ajout
 exports.getNotificationByUserId = getNotificationByUserId
+exports.AddNotification = AddNotification

@@ -17,4 +17,8 @@ route.post(
   attestationAffiliation.ajout
 );
 
+route.get("/", attestationAffiliation.getattestationAffiliation);
+route.patch("/:id", attestationAffiliation.updatedStatus);
+
+
 module.exports = route;

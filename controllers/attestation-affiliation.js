@@ -25,6 +25,7 @@ const ajout = async (req, res, next) => {
     dateCIN,
     DateNaissance,
     lieuNaissance,
+    utilisateurId,
     finish: false,
   });
 
@@ -61,6 +62,28 @@ const getattestationAffiliation = async (req, res, next) => {
   res.json({ attestation: existingattestationAffiliation });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let existingElement;
+
+  try {
+    existingElement = await attestationAffiliation.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  existingElement.finish = true;
+
+  try {
+    existingElement.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ existingElement: existingElement });
+};
+
 
 exports.ajout =ajout
 exports.getattestationAffiliation = getattestationAffiliation
+exports.updatedStatus = updatedStatus

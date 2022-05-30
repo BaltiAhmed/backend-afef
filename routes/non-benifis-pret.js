@@ -17,4 +17,10 @@ route.post(
   nonBenifisPret.ajout
 );
 
+route.get("/", nonBenifisPret.getnonBenifisPret);
+
+route.patch("/:id", nonBenifisPret.updatedStatus);
+
+
+
 module.exports = route;
