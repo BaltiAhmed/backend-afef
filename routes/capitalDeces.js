@@ -15,5 +15,7 @@ route.patch("/updateextraitNaissConjoint/:id", fileUpload.single("image"), capit
 
 route.get("/", capitalDecesControllers.getCapital);
 route.get("/:id", capitalDecesControllers.getCapitalById);
+route.patch("/:id", capitalDecesControllers.updatedStatus);
+
 
 module.exports = route;

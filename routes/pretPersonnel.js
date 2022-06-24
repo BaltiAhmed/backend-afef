@@ -26,5 +26,8 @@ route.patch(
 );
 
 route.get("/", pretPersonnelControllers.getPretPers);
+route.get("/:id", pretPersonnelControllers.getPretPersById);
+route.patch("/:id", pretPersonnelControllers.updatedStatus);
+
 
 module.exports = route;

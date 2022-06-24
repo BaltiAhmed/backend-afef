@@ -163,6 +163,28 @@ const updateextraitNaissance = async (req, res, next) => {
   res.status(200).json({ existingAllocation: existingAllocation });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await allocationVieillesse.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
+
 exports.ajout = ajout;
 exports.getAllocation = getAllocation;
 exports.getAllocationById = getAllocationById;
@@ -170,3 +192,5 @@ exports.updateArreteMiseRetraite = updateArreteMiseRetraite;
 exports.updateReleveServices = updateReleveServices;
 exports.updatephotoIdentite = updatephotoIdentite;
 exports.updateextraitNaissance = updateextraitNaissance;
+exports.updatedStatus = updatedStatus
+

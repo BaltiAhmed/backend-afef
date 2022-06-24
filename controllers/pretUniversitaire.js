@@ -244,6 +244,28 @@ const updatecertificatInscrit = async (req, res, next) => {
   res.status(200).json({ existingPretUniv: existingPretUniv });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await pretUniversitaire.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
+
 exports.ajout = ajout;
 exports.getPretUniv = getPretUniv;
 exports.getPretUnivById = getPretUnivById;
@@ -254,3 +276,5 @@ exports.updateattestationSalaire = updateattestationSalaire;
 exports.updatedeclarationREV = updatedeclarationREV;
 exports.updaterib = updaterib;
 exports.updatecertificatInscrit = updatecertificatInscrit;
+exports.updatedStatus = updatedStatus
+

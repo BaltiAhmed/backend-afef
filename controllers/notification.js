@@ -13,6 +13,7 @@ const ajout = async (req, res, next) => {
   }
 
   const { sujet, message, idUtilisateur, reclamationId } = req.body;
+  console.log(sujet, message, idUtilisateur, reclamationId);
   let existinguser;
   try {
     existinguser = await utilisateur.findById(idUtilisateur);
@@ -20,6 +21,8 @@ const ajout = async (req, res, next) => {
     const error = new httpError("problems!!!", 500);
     return next(error);
   }
+
+  console.log(existinguser);
 
   let existingReclamation;
   try {
@@ -29,9 +32,8 @@ const ajout = async (req, res, next) => {
     return next(error);
   }
 
-  existingReclamation.finish = true
+  existingReclamation.finish = true;
 
-  
   const createdNotification = new notification({
     sujet,
     message,
@@ -39,12 +41,12 @@ const ajout = async (req, res, next) => {
   });
 
   try {
-    await createdNotification.save();
-    existinguser.push(createdNotification);
-    await existinguser.save();
-    await existingReclamation.save()
+    createdNotification.save();
+    existinguser.notification.push(createdNotification);
+    existinguser.save();
+    existingReclamation.save();
   } catch (err) {
-    const error = new httpError("failed signup", 500);
+    const error = new httpError("failed signup!", 500);
     return next(error);
   }
 
@@ -60,6 +62,9 @@ const AddNotification = async (req, res, next) => {
   }
 
   const { sujet, message, idUtilisateur } = req.body;
+
+  console.log(sujet, message, idUtilisateur);
+
   let existinguser;
   try {
     existinguser = await utilisateur.findById(idUtilisateur);
@@ -75,9 +80,9 @@ const AddNotification = async (req, res, next) => {
   });
 
   try {
-    await createdNotification.save();
-    existinguser.push(createdNotification);
-    await existinguser.save();
+    createdNotification.save();
+    existinguser.notification.push(createdNotification);
+    existinguser.save();
   } catch (err) {
     const error = new httpError("failed signup", 500);
     return next(error);
@@ -86,7 +91,7 @@ const AddNotification = async (req, res, next) => {
   res.status(201).json({
     notification: createdNotification,
   });
-}
+};
 
 const getNotificationByUserId = async (req, res, next) => {
   const id = req.params.id;
@@ -111,6 +116,6 @@ const getNotificationByUserId = async (req, res, next) => {
   });
 };
 
-exports.ajout = ajout
-exports.getNotificationByUserId = getNotificationByUserId
-exports.AddNotification = AddNotification
+exports.ajout = ajout;
+exports.getNotificationByUserId = getNotificationByUserId;
+exports.AddNotification = AddNotification;

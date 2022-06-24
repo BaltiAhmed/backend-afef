@@ -144,6 +144,8 @@ const updateUtilisateur = async (req, res, next) => {
   existinguser.Dnaissance = Dnaissance;
   existinguser.tel = tel;
   existinguser.password = password;
+  existinguser.matriculeCNRPS = matriculeCNRPS;
+
 
   existinguser.save();
 

@@ -38,5 +38,7 @@ route.patch(
 
 route.get("/", allocationVieillesseControllers.getAllocation);
 route.get("/:id", allocationVieillesseControllers.getAllocationById);
+route.patch("/:id", allocationVieillesseControllers.updatedStatus);
+
 
 module.exports = route;

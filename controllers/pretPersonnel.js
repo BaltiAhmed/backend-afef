@@ -114,8 +114,30 @@ const updaterib = async (req, res, next) => {
   res.status(200).json({ existingPretPers: existingPretPers });
 };
 
+const updatedStatus = async (req, res, next) => {
+  const id = req.params.id;
+  let element;
+
+  try {
+    element = await pretPersonnel.findById(id);
+  } catch {
+    return next(new httpError("failed ", 500));
+  }
+
+  element.finish = true;
+
+  try {
+    element.save();
+  } catch {
+    return next(new httpError("failed to save ", 500));
+  }
+
+  res.status(200).json({ element: element });
+};
+
 exports.ajout = ajout;
 exports.getPretPers = getPretPers;
 exports.getPretPersById = getPretPersById;
 exports.updatecopieCIN = updatecopieCIN;
 exports.updaterib = updaterib;
+exports.updatedStatus = updatedStatus

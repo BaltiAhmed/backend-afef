@@ -35,7 +35,7 @@ check('password')
 .isLength({min:8})
 , utilisateurRoute.login)
 
-route.post('/:id', 
+route.patch('/:id', 
 check('nom')
 .not()
 .isEmpty(),

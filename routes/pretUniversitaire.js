@@ -52,4 +52,7 @@ route.patch(
 route.get("/", pretUniversitaireControllers.getPretUniv);
 route.get("/:id", pretUniversitaireControllers.getPretUnivById);
 
+route.patch("/:id", pretUniversitaireControllers.updatedStatus);
+
+
 module.exports = route;
